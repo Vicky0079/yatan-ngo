@@ -1,0 +1,165 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ BASE ============ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-white text-ink-900 antialiased;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.hindi {
+  font-family: "Noto Sans Devanagari", sans-serif;
+}
+
+*:focus-visible {
+  outline: 2px solid #DC2626;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ============ LAYOUT HELPERS ============ */
+.container-x {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-py {
+  @apply py-16 sm:py-20 md:py-24;
+}
+
+/* ============ FLUID TYPOGRAPHY ============ */
+.h-display {
+  font-size: clamp(2rem, 5.2vw + 0.5rem, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.h-section {
+  font-size: clamp(1.5rem, 3.8vw + 0.5rem, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.p-lead {
+  font-size: clamp(1rem, 0.6vw + 0.9rem, 1.25rem);
+  line-height: 1.6;
+}
+
+/* ============ REVEAL — animation on mount, always visible ============ */
+@keyframes revealFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: revealFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-d1 { animation-delay: 0.1s; }
+.reveal-d2 { animation-delay: 0.2s; }
+.reveal-d3 { animation-delay: 0.3s; }
+.reveal-d4 { animation-delay: 0.4s; }
+.reveal-d5 { animation-delay: 0.5s; }
+
+/* Keep old .is-visible class harmless */
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ============ BUTTONS ============ */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold tracking-wide transition-all duration-300 sm:text-base;
+}
+.btn-primary {
+  @apply btn bg-brand-600 text-white shadow-lift;
+}
+.btn-primary:hover {
+  @apply bg-brand-700 shadow-glow -translate-y-0.5;
+}
+.btn-ghost {
+  @apply btn border-2 border-ink-900 text-ink-900;
+}
+.btn-ghost:hover {
+  @apply bg-ink-900 text-white -translate-y-0.5;
+}
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.35) 50%, transparent 80%);
+  transition: left .75s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after { left: 150%; }
+
+/* ============ IMAGE HOVER ============ */
+.img-zoom { overflow: hidden; }
+.img-zoom img {
+  transition: transform .9s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+.img-zoom:hover img { transform: scale(1.06); }
+
+/* ============ SKELETON ============ */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* ============ CARD GLOW ============ */
+.card-glow { position: relative; }
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(220,38,38,.15), rgba(249,115,22,.1));
+  opacity: 0;
+  transition: opacity .4s ease;
+  z-index: -1;
+}
+.card-glow:hover::before { opacity: 1; }
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-d1,
+  .reveal-d2,
+  .reveal-d3,
+  .reveal-d4,
+  .reveal-d5 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #F8FAFC; }
+::-webkit-scrollbar-thumb {
+  background: #DC2626;
+  border-radius: 10px;
+  border: 2px solid #F8FAFC;
+}
+::-webkit-scrollbar-thumb:hover { background: #B91C1C; }
